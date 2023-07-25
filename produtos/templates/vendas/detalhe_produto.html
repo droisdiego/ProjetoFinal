@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{%block title%}{{ produto.nome }} - {{produto.marca}}{%endblock%}
+{% block center %}
+
+<style>
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        /* justify-content: center; */
+        list-style: none;
+        padding: 0;
+    }
+
+    .card {
+        flex: 0 0 250px; /* Largura fixa para cada cartão */
+        height: 300px; /* Altura fixa para cada cartão */
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: box-shadow 0.3s;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(175, 15, 204, 0.514);
+    }
+
+    .card img {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    .card h3 {
+        font-size: 16px;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+
+    .card p {
+        font-size: 14px;
+        margin: 0;
+    }
+
+
+    .container {
+        display: inline-block;
+        width: 40%;
+        vertical-align: top;
+    }
+
+    .container img {
+        width: 300px;
+        height: 300px;
+        border-radius: 4px;
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" style="width: auto; align-items: center;">
+</div>
+
+<div class="container">
+    <h1>{{ produto.nome }} - {{produto.marca}}</h1>
+    <div>
+        <h5>
+            {{produto.descricao}}
+        </h5>
+        <h3>
+           R$ {{ produto.preco }}
+        </h3>
+
+        <a href="" class="btn btn-danger btn-sm">Comprar</a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<h4>Outros discos da mesma Banda:</h4>
+<ul>
+    {% for produto_similar in produtos_similares %}
+    <div class="cards-container">
+        <ul>
+            <li class="card"><a href="{% url 'detalhe_produto' id=produto_similar.id %}">
+                    <div>
+                        <img src="{{ produto_similar.imagem.url }}" alt="{{ produto_similar.nome }}">
+
+                        <h3>{{ produto_similar.nome }}</h3>
+
+                        <p>{{produto_similar.preco}}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        
+        {% endfor %}
+</ul>
+
+{% endblock center %}

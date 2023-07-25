@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block center %}
+<style>
+    body {
+        background-image: linear-gradient(to bottom, #760081d0, #15004ed8);
+
+    }
+
+</style>
+ <body>
+    <h2  style="color: aliceblue;">Lista de Discos</h2>
+
+  <a href="{% url 'produto_criar' %}" class="btn btn-success mb-3">Novo Cadastro</a>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th style="color: aliceblue;">Imagem</th>
+        <th style="color: aliceblue;">Nome</th>
+        <th style="color: aliceblue;">Banda</th>
+        <th style="color: aliceblue;">Preco</th>
+        <th style="color: aliceblue;">informações</th>
+        <th style="color: aliceblue;">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for produto in produtos %}  
+
+      <tr>
+        <td style="width: 150px; text-align: center;color: aliceblue;"><a href="{% url 'detalhe_produto' id=produto.id %}"><img style="text-align: center;width: auto; height: 100px;" src="{{ produto.imagem.url }}" alt=""></a></td>
+        <td style="width: 100px; text-align: center;color: aliceblue;">{{ produto.nome }}</td>
+        <td style="width: 100px; text-align: center;color: aliceblue;">{{ produto.marca }}</td>
+        <td style="width: 100px; text-align: center;color: aliceblue;">R$ {{ produto.preco }}</td>
+        <td style="color: aliceblue;">{{produto.descricao}}</td>
+        <td>
+          <a href="{% url 'produto_editar' id=produto.id%}" class="btn btn-primary btn-sm" style="width: 150px; text-align: center;">Editar</a>
+          <a href="{% url 'produto_remover' id=produto.id %}" class="btn btn-danger btn-sm" style="width: 150px; text-align: center;">Remover</a>
+        </td>
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+</body> 
+{% endblock %}
